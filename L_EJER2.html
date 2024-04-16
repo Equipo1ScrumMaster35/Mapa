@@ -1,0 +1,90 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mapa</title>
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    />
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+
+    <style>
+      #map {
+        width: 100%;
+        height: 100%;
+        box-shadow: 5px 5px 5px #888;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      var osm = L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+          attribution:
+            '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>' +
+            "contributors",
+          maxZoom: 18,
+        }
+      );
+
+      var map = L.map("map", {
+        center: [1.615265131560737, -75.60487345669928],
+        zoom: 16,
+        layers: osm,
+        scrollWheelZoom: false,
+      });
+      L.control.scale().addTo(map);
+
+      var marker = L.marker([1.620287866574759, -75.60420196174756], {
+        draggable: false,
+        title: "Marcador",
+      })
+        .addTo(map)
+        .bindPopup("Universidad de la Amazonia");
+
+      var marker2 = L.marker([1.6150832417970375, -75.61386000531883], {
+        draggable: true,
+        title: "Marcador",
+      })
+        .addTo(map)
+        .bindPopup("Alcaldia de Florencia");
+
+      var circle = L.circle([1.6150832417970375, -75.61386000531883], 500, {
+        color: "red",
+        fillColor: "#f03",
+        fillOpacity: 0.5,
+      })
+        .addTo(map)
+        .bindPopup("Radio 500m de la Alcaldia de Florencia");
+
+      var marker3 = L.marker([1.6151701386212944, -75.6132929758418], {
+        draggable: false,
+        title: "Marcador",
+      })
+        .addTo(map)
+        .bindPopup("Plaza Principal Santander de Florencia");
+
+      var polygon = L.polygon([
+        [1.6151727243806995, -75.6136957328404],
+        [1.6153908051170414, -75.61304443891864],
+        [1.614698077991275, -75.61282947984103],
+        [1.614515274960369, -75.613496815485],
+      ])
+        .addTo(map)
+        .bindPopup("Plaza Principal Santander de Florencia");
+
+      var pointA = new L.LatLng(1.6219170579929856, -75.60440944760316);
+      var pointB = new L.LatLng(1.6222297778470103, -75.60287675068038);
+      var pointC = new L.LatLng(1.621882290675803, -75.60180753588246);
+
+      var latlngs = [pointA, pointB, pointC];
+      var polyline = L.polyline(latlngs, { color: "red" })
+        .addTo(map)
+        .bindPopup("Ruta de mi casa");
+    </script>
+  </body>
+</html>
